@@ -2,8 +2,8 @@
 //altså allt under här tills linjen har jag skrivit
 // Den ska slumpa 1-6 och om 1 är värdet ändrar den turen till andra spelaren
 
-let player1 = prompt("Vad heter spelare 1?") //todo - Gör denna snyggare
-let player2 = prompt("Vad heter spelare 2?")
+let player1 = null //todo - Gör denna snyggare
+let player2 = null
 
 document.getElementById("Player1").textContent = player1
 document.getElementById("Player2").textContent = player2
