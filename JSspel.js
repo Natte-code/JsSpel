@@ -5,8 +5,21 @@
 let player1 = null //todo - Gör denna snyggare
 let player2 = null
 
-document.getElementById("Player1").textContent = player1
-document.getElementById("Player2").textContent = player2
+
+
+document.getElementById("Aplicera").addEventListener("click", function(){
+    player1 = document.getElementById("playe1input").value || "player 1";
+
+    document.getElementById("player1").textContent = player1;   
+    
+})
+
+
+document.getElementById("Aplicera2").addEventListener("click", function(){
+    player2 = document.getElementById("playe2input").value || "player 2";
+    document.getElementById("player2").textContent = player2;
+})
+
 
 // console.log(player1, player2) - detta var en demo för att kolla så den sparade namnen korrekt
 
