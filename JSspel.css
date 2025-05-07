@@ -9,7 +9,6 @@
    align-items: center;
    justify-content: space-between;
    background-color: aqua;
-   w
 }
 #middle{
     display: flex;
@@ -31,7 +30,7 @@
 }
 
 #currentpoint1container{
-    margin-top: 250%;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,7 +38,7 @@
 }
 
 #currentpoint2container{
-    margin-top: 250%;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
