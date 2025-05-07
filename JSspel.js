@@ -5,6 +5,9 @@
 let player1 = prompt("Vad heter spelare 1?") //todo - Gör denna snyggare
 let player2 = prompt("Vad heter spelare 2?")
 
+
+// console.log(player1, player2) - detta var en demo för att kolla så den sparade namnen korrekt
+
 let currentplayer = player1 // - detta är den spelaren som ska spela just nu. ska kunna bytas
 // denna ska korilera till vart scores läggs
 
@@ -20,11 +23,11 @@ function changePlayer() {
 
 
 // funktonen är skriven av nathaniel och lägger in poängen i den aktuella spelarens score
-function addPoints(score) { // asså vi skulle kunna lägga en exception för dice = 1 här men asså det ser snyggare ut om den är i dice funktionen tycker jag
+function addPoints(dice) { // asså vi skulle kunna lägga en exception för dice = 1 här men asså det ser snyggare ut om den är i dice funktionen tycker jag
     if (currentplayer === player1) {
-        player1Score += score;
+        player1Score += dice;
     } else {
-        player2Score += score;
+        player2Score += dice;
     }
 }
 
@@ -44,14 +47,41 @@ function rollDice() {
         }
         changePlayer(); //byter spelare
     } else {
-        addPoints(dice); // Lägg till poängen till den aktuella spelarens score
+        addPoints(dice); //Lägg till poängen till den aktuella spelarens score
+    }
+}
+
+function keepscore(){
+    if (currentplayer === player1) {
+        player1Score_final = player1Score_final + player1Score
+        player1Score = 0
+    }
+    else if (currentplayer === player2){
+        player2Score_final = player2Score_final + player2Score
+        player2Score = 0 
     }
 }
 
 
+function win(){
+    if (player1Score_final >= 50){
+        //Gör så spelet stannar och spelare 1 vinner
+    }
+    else if (player1Score_final >= 50){
+        //samma fast för spelare 2
+    }
+}
+
+function replay(){
+    player1Score = 0
+    player1Score_final = 0
+    player2Score = 0
+    player2Score_final = 0
+    player2 = null
+    player1 = null
+}
 
 //todo - gör funktion som sparar pointsen till final score
 
 //////////////////////////////////////////////////////////////////////////////////////////////////// - slut på nathaniels kod
 
-// otto kan kanske göra: funktionen kollar vems score som är högre än 50 och får den att vinna
