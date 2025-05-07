@@ -5,6 +5,8 @@
 let player1 = prompt("Vad heter spelare 1?") //todo - Gör denna snyggare
 let player2 = prompt("Vad heter spelare 2?")
 
+document.getElementById("Player1").textContent = player1
+document.getElementById("Player2").textContent = player2
 
 // console.log(player1, player2) - detta var en demo för att kolla så den sparade namnen korrekt
 
