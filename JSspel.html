@@ -10,17 +10,30 @@
     <div id="container">
       <div id="leftside">
         <input type="text" name="player1" id="playe1input" placeholder="Player 1" />
+        <input type="color" id="color1" value="#0000ff" />
         
-        <button id="Aplicera">Aplicera namn</button>
+        <button id="Aplicera">Aplicera</button>
+        
         <h2 id="player1">Player 1</h2>
-        <div id="point1"><h2>0</h2></div>
+        
+        <div id="point1"><h2 id="finalpoint1">0</h2></div>
         <div id="currentbox2">
             <h2>Current</h2>
-            <h2>0</h2>
+            <h2 id="potentialpoint1">0</h2>
          </div>
       </div>
       <div id="middle">
         <div id="newgame"><button id="newgameb"> New Game</button></div>
+        <div id="dice-container">
+          <div id="dice">
+              <div class="dot dot1"></div>
+              <div class="dot dot2"></div>
+              <div class="dot dot3"></div>
+              <div class="dot dot4"></div>
+              <div class="dot dot5"></div>
+              <div class="dot dot6"></div>
+          </div>
+        </div>
         <div id="middle2">
           <div id="roll"><button id="rollb">Roll dice!</button></div>
           <div id="hold"><button id="holdb">Hold!</button></div>
@@ -28,13 +41,14 @@
       </div>
       <div id="rightside">
         <input type="text" name="player2" id="playe2input" placeholder="Player 2" />
-        <button id="Aplicera2">Aplicera namn</button>
+        <input type="color" id="color2" value="#ff0000" />
+        <button id="Aplicera2">Aplicera</button>
         <h2 id="player2">Player 2</h2>
         
-        <div id="point2"><h2>0</h2></div>
+        <div id="point2"><h2 id="finalpoint2">0</h2></div>
         <div id="currentbox2">
           <h2>Current</h2>
-          <h2>0</h2>
+          <h2 id="potentialpoint2">0</h2>
         </div>
       </div>
     </div>
