@@ -109,11 +109,11 @@ function keepscore(){
 function win(){
     if (player1Score_final >= 50){
         alert(player1 + " vinner!");
-        replay();
+        
     }
     else if (player2Score_final >= 50){
         alert(player2 + " vinner!");
-        replay();
+        
     }
 }
 
