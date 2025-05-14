@@ -21,6 +21,7 @@ let player2Score = 0
 
 function changePlayer() {
     currentplayer = currentplayer === player1 ? player2 : player1;
+    
 }
 
 
@@ -42,9 +43,11 @@ function addPoints(dice) { // asså vi skulle kunna lägga en exception för dic
 function rollDice() { 
     const dice = Math.floor(Math.random() * 6) + 1; // slumpar ett värde mellan 1-6
 
-    // Dice UI
+    // Dölj alla prickar först
     const dots = document.querySelectorAll('#dice .dot');
-    dots.forEach(dot => dot.style.display = 'none');
+    dots.forEach(dot => dot.style.display = 'none'); // gjorde i ai
+
+    // Visa prickar enligt tärningssida
     if (dice === 1) {
         document.querySelector('.dot1').style.display = 'block';
     } else if (dice === 2) {
@@ -70,7 +73,8 @@ function rollDice() {
         document.querySelector('.dot3').style.display = 'block';
         document.querySelector('.dot4').style.display = 'block';
         document.querySelector('.dot5').style.display = 'block';
-        document.querySelectorAll('.dot6').forEach(dot => dot.style.display = 'block');
+        document.querySelector('.dot6').style.display = 'block';
+        document.querySelector('.dot7').style.display = 'block';
     }
 
     if (dice === 1) { //kollar om tärningen är 1
@@ -129,10 +133,6 @@ function updateScoreUI(){
     document.getElementById('potentialpoint2').textContent = player2Score;
 }
 
-//todo - gör funktion som sparar pointsen till final score
-
-//////////////////////////////////////////////////////////////////////////////////////////////////// - slut på nathaniels kod
-
 //core functions
 document.getElementById("rollb").addEventListener("click", function() {
     rollDice();
@@ -163,9 +163,25 @@ document.getElementById("Aplicera2").addEventListener("click", function(){
     document.getElementById("player2").textContent = player2;
 })
 
+function updateBgGradient() { // updaterar bakrunderna korrekt
+    const leftColor = document.getElementById('color1').value;
+    const rightColor = document.getElementById('color2').value;
+    // Bakgrundsgradient för hela sidan
+    document.getElementById('bg-blur').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
+    // Gradient för mitten
+    document.getElementById('middle').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
+}
+
 document.getElementById('color1').addEventListener('input', function() {
     document.getElementById('leftside').style.backgroundColor = this.value;
-  });
-  document.getElementById('color2').addEventListener('input', function() {
+    updateBgGradient();
+    
+});
+document.getElementById('color2').addEventListener('input', function() {
     document.getElementById('rightside').style.backgroundColor = this.value;
-  });
+    updateBgGradient();
+    
+});
+
+// Kör en gång vid start
+updateBgGradient();

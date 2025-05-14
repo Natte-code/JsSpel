@@ -1,83 +1,130 @@
-#container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    height: 100%;
-}
-#leftside{
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: space-between;
-   background-color: blue;
-   width: 100%;
-   
-}
-#middle{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    /* Gör så att mitten diven har hälften av båda färgerna på sidorna */
-    background: linear-gradient(to left,  red 50%, blue 50%);
-    /* Gör bakgrunden blurry mot mitten */
-    backdrop-filter: blur(100%); 
-    
-}
-#middle2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-}
-#rightside{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    background-color: red;
-    width: 100%;
+/* Gör så att body och html täcker hela sidan */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  position: relative;
 }
 
-#currentbox1{
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
+/* Bakgrunds-blur och färg */
+/* Denna del fick vi lite hjälp av ai för idé samt externa websida */
+#bg-blur {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  /* Default gradient, uppdateras av JS */
+  background: linear-gradient(to right, #0000ff 0%, #0000ff 50%, #ff0000 50%, #ff0000 100%);
+  filter: blur(32px); 
+  transition: background 0.5s;
 }
 
-#currentbox2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
+/* Container ovanpå bakgrunden */
+/* Denna del fick vi lite hjälp av ai för idé samt externa websida */
+#container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 100vh;
+  min-height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
 }
+
+/* Sidor */
+/* Denna del fick vi lite hjälp av ai för idé samt externa websida */
+#leftside, #rightside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+
+  min-width: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  transition: filter 0.4s;
+}
+
+#leftside {
+  /* Bakgrundsfärg sätts av JS */
+}
+
+#rightside {
+  /* Bakgrundsfärg sätts av JS */
+}
+
+/* Mitten */
+/* Denna del fick vi lite hjälp av ai för idé samt externa websida */
+#middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  background: linear-gradient(to right, var(--left-color, #0000ff) 0%, var(--left-color, #0000ff) 50%, var(--right-color, #ff0000) 50%, var(--right-color, #ff0000) 100%);
+  backdrop-filter: blur(16px);
+  transition: background 0.5s;
+  box-sizing: border-box;
+}
+
+#middle2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#currentbox1, #currentbox2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+#dice-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
 #dice {
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    position: relative;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border: 2px solid #000;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  position: relative;
 }
 
 .dot {
-    width: 20px;
-    height: 20px;
-    background-color: black;
-    border-radius: 50%;
-    display: none; /* Hidden by default */
-    position: relative;
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  border-radius: 50%;
+  justify-self: center;
+  align-self: center;
 }
 
-.dot1 { grid-area: 2 / 2; } /* Center */
-.dot2 { grid-area: 1 / 1; } /* Top-left */
-.dot3 { grid-area: 3 / 3; } /* Bottom-right */
-.dot4 { grid-area: 1 / 3; } /* Top-right */
-.dot5 { grid-area: 3 / 1; } /* Bottom-left */
-.dot6 { grid-area: 2 / 1; } /* Middle-left */
-.dot6:nth-child(6) { grid-area: 2 / 3; } /* Middle-right */
+/* omstrukturerad av AI */
+.dot1 { grid-area: 2 / 2; } 
+.dot2 { grid-area: 1 / 1; } 
+.dot3 { grid-area: 3 / 3; } 
+.dot4 { grid-area: 1 / 3; } 
+.dot5 { grid-area: 3 / 1; } 
+.dot6 { grid-area: 2 / 1; } 
+.dot7 { grid-area: 2 / 3; } 
