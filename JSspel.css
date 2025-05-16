@@ -7,10 +7,12 @@ html, body {
   width: 100vw;
   overflow-x: hidden;
   position: relative;
+  background-color: #000; /* Ändra till en mörk bakgrund om det behövs */
+  overflow: hidden; /* Förhindra scrollbars som kan orsaka glow */
 }
 
 /* Bakgrunds-blur och färg */
-/* Denna del fick vi lite hjälp av ai för idé samt externa websida */
+
 #bg-blur {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -19,12 +21,11 @@ html, body {
   z-index: 0;
   /* Default gradient, uppdateras av JS */
   background: linear-gradient(to right, #0000ff 0%, #0000ff 50%, #ff0000 50%, #ff0000 100%);
-  filter: blur(32px); 
+  filter: none; /* Ta bort blur för att eliminera glow */
   transition: background 0.5s;
 }
 
 /* Container ovanpå bakgrunden */
-/* Denna del fick vi lite hjälp av ai för idé samt externa websida */
 #container {
   position: relative;
   z-index: 1;
@@ -38,7 +39,6 @@ html, body {
 }
 
 /* Sidor */
-/* Denna del fick vi lite hjälp av ai för idé samt externa websida */
 #leftside, #rightside {
   display: flex;
   flex-direction: column;
@@ -51,9 +51,11 @@ html, body {
   min-height: 100vh;
   box-sizing: border-box;
   transition: filter 0.4s;
+  box-shadow: none; /* Ta bort eventuell skugga */
+  filter: none; /* Ta bort filter */
 }
-
-#leftside {
+/* LÅT DET VARA DEN FUNKAR BARA */
+#leftside { 
   /* Bakgrundsfärg sätts av JS */
 }
 
@@ -62,7 +64,6 @@ html, body {
 }
 
 /* Mitten */
-/* Denna del fick vi lite hjälp av ai för idé samt externa websida */
 #middle {
   display: flex;
   flex-direction: column;
@@ -103,7 +104,7 @@ html, body {
   background-color: white;
   border: 2px solid #000;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: none; /* Ta bort eventuell skugga från tärningen */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -127,4 +128,4 @@ html, body {
 .dot4 { grid-area: 1 / 3; } 
 .dot5 { grid-area: 3 / 1; } 
 .dot6 { grid-area: 2 / 1; } 
-.dot7 { grid-area: 2 / 3; } 
+.dot7 { grid-area: 2 / 3; }

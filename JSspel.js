@@ -102,10 +102,9 @@ function keepscore(){
     }
     changePlayer(); // Byt spelare efter att poängen lagts till
     updateScoreUI();
-    win(); // Kolla om någon har vunnit efter att poäng lagts till
+    win(); // kollar ifall någon har vunnit efter att poäng lagts till
 }
 
-// Rätta felet i win-funktionen
 function win(){
     if (player1Score_final >= 50){
         alert(player1 + " vinner!");
@@ -166,11 +165,14 @@ document.getElementById("Aplicera2").addEventListener("click", function(){
 function updateBgGradient() { // updaterar bakrunderna korrekt
     const leftColor = document.getElementById('color1').value;
     const rightColor = document.getElementById('color2').value;
-    // Bakgrundsgradient för hela sidan
+    //bakgrundsgradient för hela sidan
     document.getElementById('bg-blur').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
-    // Gradient för mitten
+    //gradient för mitten
     document.getElementById('middle').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
 }
+
+//färger bara
+//funktioner som kollar efter färger osv.
 
 document.getElementById('color1').addEventListener('input', function() {
     document.getElementById('leftside').style.backgroundColor = this.value;
