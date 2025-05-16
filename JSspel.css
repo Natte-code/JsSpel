@@ -1,5 +1,6 @@
 /* Gör så att body och html täcker hela sidan */
 html, body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -43,10 +44,10 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start; /* Align items at the top */
+  gap: 20px; /* Add spacing between sections */
   width: 100%;
   background: transparent;
-
   min-width: 0;
   min-height: 100vh;
   box-sizing: border-box;
@@ -63,12 +64,66 @@ html, body {
   /* Bakgrundsfärg sätts av JS */
 }
 
+/* Player Info Section */
+.player-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Add spacing between player name and score */
+}
+
+/* Player Controls Section */
+.player-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Add spacing between controls */
+}
+
+/* General Styling for Inputs and Buttons */
+input[type="text"], button {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: #007bff;
+}
+
+button {
+  background-color: #ff9800; /* Bright orange for contrast */
+  color: #ffffff; /* White text for readability */
+  font-weight: bold;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for 3D effect */
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  background-color: #e68900; /* Slightly darker orange on hover */
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+button:active {
+  background-color: #cc7a00; /* Even darker orange on click */
+  transform: translateY(2px); /* Pressed effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+}
+
 /* Mitten */
 #middle {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   min-width: 0;
   min-height: 100vh;
@@ -89,6 +144,12 @@ html, body {
   flex-direction: column;
   align-items: center;
   background-color: white;
+  margin-bottom: 20px;
+  width: 100px;
+  box-shadow: 16px 16px 30px rgba(0,0,0,0.18), 0 1.5px 4px rgba(0,0,0,0.12);
+  border-radius: 18px;
+  transform: scale(1.05);
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
 #dice-container {
@@ -96,6 +157,7 @@ html, body {
   justify-content: center;
   align-items: center;
   margin: 20px 0;
+  flex-direction: column;
 }
 
 #dice {
@@ -110,6 +172,7 @@ html, body {
   grid-template-rows: repeat(3, 1fr);
   gap: 5px;
   position: relative;
+  margin-bottom: 10px;
 }
 
 .dot {
@@ -129,3 +192,105 @@ html, body {
 .dot5 { grid-area: 3 / 1; } 
 .dot6 { grid-area: 2 / 1; } 
 .dot7 { grid-area: 2 / 3; }
+
+/* Button container */
+#button-group {
+  display: flex;
+  outline: 2px solid #fff; /* Add focus outline for accessibility */
+  transform: scale(0.95); /* Slight shrink effect */
+  background-color: #003f7f; /* Even darker shade on click */
+  transform: scale(1.05); /* Slight zoom effect */
+  background-color: #0056b3; /* Darker shade on hover */
+  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background-color: #007bff; /* Primary button color */
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 8px; /* Optional: rounded corners */
+  background-color: rgba(0, 0, 0, 0.5); /* Optional: semi-transparent background */
+  padding: 10px; /* Add padding for better spacing */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  left: 50%; /* Center horizontally */
+  top: 50%; /* Center vertically */
+  position: absolute; /* Position the container absolutely */
+  gap: 15px; /* Add spacing between buttons */
+  align-items: center;
+  justify-content: center;
+}
+#rollb{
+  margin-bottom: 10px;
+}
+
+/* Highlight the current player's turn */
+.current-turn {
+  border: 3px solid #4caf50; /* Green border to indicate the current turn */
+  padding: 10px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #e0ffe0, #b3ffb3); /* Soft green gradient */
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.6); /* Subtle green glow */
+  transition: box-shadow 0.3s, border 0.3s, background 0.3s;
+}
+
+/* Current Turn Label */
+.current-turn-label {
+  position: relative; /* Ensure it stays within the container */
+  font-size: 20px; /* Adjust font size for better fit */
+  font-weight: bold;
+  color: #ffffff; /* White text for contrast */
+  background-color: #333333; /* Neutral dark gray background */
+  padding: 8px 16px; /* Adjust padding for better fit */
+  border-radius: 12px;
+  border: 2px solid #ffffff; /* White border for emphasis */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Strong white glow */
+  text-transform: uppercase;
+  animation: fadeIn 0.8s ease-in-out; /* Fade-in animation */
+  white-space: nowrap; /* Prevent text wrapping */
+  margin-top: 10px; /* Add spacing from other elements */
+}
+
+/* Pulse animation for the label */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(255, 255, 255, 1);
+  }
+  100% {
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#playe2input, #playe1input {
+  margin-top: 20px;
+}
+/* snyggar till namn displayen*/
+#player1, #player2 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45); /* Halvtransparent svart bakgrund */
+  padding: 12px 28px;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1.5px 4px rgba(0,0,0,0.18);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  transition: box-shadow 0.3s, background 0.3s;
+}

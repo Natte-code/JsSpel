@@ -21,7 +21,21 @@ let player2Score = 0
 
 function changePlayer() {
     currentplayer = currentplayer === player1 ? player2 : player1;
-    
+
+    // Update the "Your Turn" label only when the turn changes
+    const leftSide = document.getElementById('leftside');
+    const rightSide = document.getElementById('rightside');
+    const currentTurnLabel = '<div class="current-turn-label">Your Turn</div>';
+
+    // Remove existing labels
+    document.querySelectorAll('.current-turn-label').forEach(label => label.remove());
+
+    // Add the label to the correct side
+    if (currentplayer === player1) {
+        leftSide.insertAdjacentHTML('beforeend', currentTurnLabel);
+    } else {
+        rightSide.insertAdjacentHTML('beforeend', currentTurnLabel);
+    }
 }
 
 
@@ -83,7 +97,7 @@ function rollDice() {
         } else {
             player2Score = 0;
         }
-        changePlayer(); //byter spelare
+        changePlayer(); // Byt spelare endast här
     } else {
         addPoints(dice); //Lägg till poängen till den aktuella spelarens score
     }
@@ -125,7 +139,7 @@ function replay(){
     updateScoreUI(); 
 }
 
-function updateScoreUI(){
+function updateScoreUI() {
     document.getElementById('finalpoint1').textContent = player1Score_final;
     document.getElementById('finalpoint2').textContent = player2Score_final;
     document.getElementById('potentialpoint1').textContent = player1Score;
@@ -162,6 +176,14 @@ document.getElementById("Aplicera2").addEventListener("click", function(){
     document.getElementById("player2").textContent = player2;
 })
 
+document.getElementById("player1").addEventListener("input", function () {
+    player1 = this.textContent.trim() || "Player 1"; // Default to "Player 1" if empty
+});
+
+document.getElementById("player2").addEventListener("input", function () {
+    player2 = this.textContent.trim() || "Player 2"; // Default to "Player 2" if empty
+});
+
 function updateBgGradient() { // updaterar bakrunderna korrekt
     const leftColor = document.getElementById('color1').value;
     const rightColor = document.getElementById('color2').value;
@@ -184,6 +206,13 @@ document.getElementById('color2').addEventListener('input', function() {
     updateBgGradient();
     
 });
+// ljud variabel
+const rollDiceSound = new Audio('rolldice.mp3'); // Ljudfilen ska finnas i samma mapp som HTML-filen
 
+// lägger till eventlyssnare för ljud q
+document.getElementById('rollb').addEventListener('click', () => {
+  rollDiceSound.currentTime = 0; // Starta om ljudet om det klickas snabbt
+  rollDiceSound.play();
+});
 // Kör en gång vid start
 updateBgGradient();
