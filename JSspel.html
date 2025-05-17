@@ -12,15 +12,16 @@
       <div id="leftside">
         <div id="player1" contenteditable="true">Player 1</div>
         <div>
-        <input type="color" id="color1" value="#0000ff" />
-        <button id="Aplicera">Aplicera</button>
+          <input type="color" id="color1" value="#0000ff" />
         </div>
-        
-        <div id="point1"><h2 id="finalpoint1">0</h2></div>
-        <div id="currentbox2">
-            <h2>Current</h2>
-            <h2 id="potentialpoint1">0</h2>
-         </div>
+        <!-- Poängboxarna: permanent överst, current under -->
+        <div class="score-area">
+          <div id="point1"><h2 id="finalpoint1">0</h2></div>
+          <div id="currentbox1">
+            <span>Current</span>
+            <span id="potentialpoint1">0</span>
+          </div>
+        </div>
       </div>
       <div id="middle">
         <div id="newgame"><button id="newgameb"> New Game</button></div>
@@ -44,14 +45,14 @@
       <div id="rightside">
         <div id="player2" contenteditable="true">Player 2</div>
         <div>
-        <input type="color" id="color2" value="#ff0000" />
-        <button id="Aplicera2">Aplicera</button>
+          <input type="color" id="color2" value="#ff0000" />
         </div>
-        
-        <div id="point2"><h2 id="finalpoint2">0</h2></div>
-        <div id="currentbox2">
-          <h2>Current</h2>
-          <h2 id="potentialpoint2">0</h2>
+        <div class="score-area">
+          <div id="point2"><h2 id="finalpoint2">0</h2></div>
+          <div id="currentbox2">
+            <span>Current</span>
+            <span id="potentialpoint2">0</span>
+          </div>
         </div>
       </div>
     </div>

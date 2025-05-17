@@ -139,17 +139,67 @@ button:active {
   align-items: center;
 }
 
+/* Denna del fick vi lite hjälp av ai för idé samt externa websida */
+.score-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 60px;      /* Flytta upp poängboxarna */
+  margin-bottom: 24px;   /* Mindre space längst ner */
+}
+
+/* Permanent points box */
+#point1, #point2 {
+  background: #fff;
+  border: 2.5px solid #222;
+  border-radius: 22px;
+  padding: 12px 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 8px; /* Minska avståndet till currentbox */
+}
+
+/* Current points box - sticker ut mot bakgrunden */
+#currentbox1, #currentbox2 {
+  /* Denna del fick vi lite hjälp av ai för idé samt externa websida */
+  background: rgba(0, 0, 0, 0.5); /* Halvtransparent svart bakgrund */
+  border: 2px solid #1565c0;
+  border-radius: 22px;
+  padding: 10px 26px;
+  box-shadow: 0 4px 16px rgba(33, 150, 243, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+  font-size: 1.2em;
+  color: #000000; /* Gör texten helt vit så siffrorna syns */
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+#currentbox1 span, #currentbox2 span {
+  margin: 0;
+  padding: 0;
+}
+
+/* Flytta currentbox längre ner (Denna del fick vi lite hjälp av ai för idé samt externa websida) */
 #currentbox1, #currentbox2 {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
-  margin-bottom: 20px;
-  width: 100px;
-  box-shadow: 16px 16px 30px rgba(0,0,0,0.18), 0 1.5px 4px rgba(0,0,0,0.12);
-  border-radius: 18px;
-  transform: scale(1.05);
-  transition: box-shadow 0.3s, transform 0.3s;
+  margin-top: auto;
+  margin-bottom: 32px;
+  padding: 8px 0;
+  min-width: 80px;
 }
 
 #dice-container {

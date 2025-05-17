@@ -119,14 +119,20 @@ function keepscore(){
     win(); // kollar ifall någon har vunnit efter att poäng lagts till
 }
 
+function getPlayerNames() {
+    player1 = document.getElementById("player1").textContent || "Player 1";
+    player2 = document.getElementById("player2").textContent || "Player 2";
+}
+
 function win(){
+    getPlayerNames();
     if (player1Score_final >= 50){
         alert(player1 + " vinner!");
-        
+        replay();
     }
     else if (player2Score_final >= 50){
         alert(player2 + " vinner!");
-        
+        replay();
     }
 }
 
@@ -146,6 +152,18 @@ function updateScoreUI() {
     document.getElementById('potentialpoint2').textContent = player2Score;
 }
 
+function updateBgGradient() { // updaterar bakrunderna korrekt
+    const leftColor = document.getElementById('color1').value;
+    const rightColor = document.getElementById('color2').value;
+    // Bakgrundsgradient för hela sidan
+    document.getElementById('bg-blur').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
+    // Gradient för mitten
+    document.getElementById('middle').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
+    // Denna del fick vi lite hjälp av ai för idé samt externa websida
+    document.getElementById('leftside').style.backgroundColor = leftColor;
+    document.getElementById('rightside').style.backgroundColor = rightColor;
+}
+
 //core functions
 document.getElementById("rollb").addEventListener("click", function() {
     rollDice();
@@ -162,50 +180,15 @@ document.getElementById("newgameb").addEventListener("click", function() {
 
 // listerners
 
-
-document.getElementById("Aplicera").addEventListener("click", function(){
-    player1 = document.getElementById("playe1input").value || "player 1";
-
-    document.getElementById("player1").textContent = player1;   
-    
-})
-
-
-document.getElementById("Aplicera2").addEventListener("click", function(){
-    player2 = document.getElementById("playe2input").value || "player 2";
-    document.getElementById("player2").textContent = player2;
-})
-
-document.getElementById("player1").addEventListener("input", function () {
-    player1 = this.textContent.trim() || "Player 1"; // Default to "Player 1" if empty
-});
-
-document.getElementById("player2").addEventListener("input", function () {
-    player2 = this.textContent.trim() || "Player 2"; // Default to "Player 2" if empty
-});
-
-function updateBgGradient() { // updaterar bakrunderna korrekt
-    const leftColor = document.getElementById('color1').value;
-    const rightColor = document.getElementById('color2').value;
-    //bakgrundsgradient för hela sidan
-    document.getElementById('bg-blur').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
-    //gradient för mitten
-    document.getElementById('middle').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
-}
-
-//färger bara
-//funktioner som kollar efter färger osv.
-
 document.getElementById('color1').addEventListener('input', function() {
-    document.getElementById('leftside').style.backgroundColor = this.value;
     updateBgGradient();
-    
+    // ...existing code...
 });
 document.getElementById('color2').addEventListener('input', function() {
-    document.getElementById('rightside').style.backgroundColor = this.value;
     updateBgGradient();
-    
+    // ...existing code...
 });
+
 // ljud variabel
 const rollDiceSound = new Audio('rolldice.mp3'); // Ljudfilen ska finnas i samma mapp som HTML-filen
 
