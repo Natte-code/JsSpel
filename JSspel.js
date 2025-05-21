@@ -1,67 +1,37 @@
-//jag ska börja med att göra tärnings funktion - nathaniel 
-//altså allt under här tills linjen har jag skrivit
-// Den ska slumpa 1-6 och om 1 är värdet ändrar den turen till andra spelaren
-
-let player1 = "Player 1"; // todo gör snyggare
+// variabler för spelare och poäng
+let player1 = "Player 1";
 let player2 = "Player 2";
+let currentplayer = player1;
 
+let player1Score_final = 0;
+let player2Score_final = 0;
+let player1Score = 0;
+let player2Score = 0;
 
-
-
-// console.log(player1, player2) - detta var en demo för att kolla så den sparade namnen korrekt
-
-let currentplayer = player1; // - detta är den spelaren som ska spela just nu. ska kunna bytas
-// denna ska korilera till vart scores läggs
-
-let player1Score_final = 0
-let player2Score_final = 0
-
-let player1Score = 0
-let player2Score = 0
-
+// byter tur till nästa spelare och fixar ui
 function changePlayer() {
     currentplayer = currentplayer === player1 ? player2 : player1;
-
-    // Update the "Your Turn" label only when the turn changes
-    const leftSide = document.getElementById('leftside');
-    const rightSide = document.getElementById('rightside');
-    const currentTurnLabel = '<div class="current-turn-label">Your Turn</div>';
-
-    // Remove existing labels
-    document.querySelectorAll('.current-turn-label').forEach(label => label.remove());
-
-    // Add the label to the correct side
-    if (currentplayer === player1) {
-        leftSide.insertAdjacentHTML('beforeend', currentTurnLabel);
-    } else {
-        rightSide.insertAdjacentHTML('beforeend', currentTurnLabel);
-    }
+    updateTurnLabel(); // flyttad logik för att återanvända
 }
 
-
-// funktonen är skriven av nathaniel och lägger in poängen i den aktuella spelarens score
-function addPoints(dice) { // asså vi skulle kunna lägga en exception för dice = 1 här men asså det ser snyggare ut om den är i dice funktionen tycker jag
+// lägger till poäng till den som spelar nu
+function addPoints(dice) {
     if (currentplayer === player1) {
         player1Score += dice;
     } else {
         player2Score += dice;
     }
     updateScoreUI();
-    
 }
 
-// funktionen är skriven av nathaniel och är en tärnings funktion som slumpar ett värde mellan 1-6
-// och kollar om det är 1 så nollas spelarens score och turen byts till nästa spelare
-// om det inte är 1 så läggs poängen till spelarens score
-// och turen byts inte.
-function rollDice() { 
-    const dice = Math.floor(Math.random() * 6) + 1; // slumpar ett värde mellan 1-6
+// slumpar tärning och hanterar logik
+function rollDice() {
+    const dice = Math.floor(Math.random() * 6) + 1;
 
-    // Dölj alla prickar först
     const dots = document.querySelectorAll('#dice .dot');
-    dots.forEach(dot => dot.style.display = 'none'); // gjorde i ai
+    dots.forEach(dot => dot.style.display = 'none'); // göm alla prickar först
 
-    // Visa prickar enligt tärningssida
+    // visa rätt antal prickar
     if (dice === 1) {
         document.querySelector('.dot1').style.display = 'block';
     } else if (dice === 2) {
@@ -91,60 +61,64 @@ function rollDice() {
         document.querySelector('.dot7').style.display = 'block';
     }
 
-    if (dice === 1) { //kollar om tärningen är 1
-        if (currentplayer === player1) { 
+    if (dice === 1) {
+        if (currentplayer === player1) {
             player1Score = 0;
         } else {
             player2Score = 0;
         }
-        changePlayer(); // Byt spelare endast här
+        changePlayer();
     } else {
-        addPoints(dice); //Lägg till poängen till den aktuella spelarens score
+        addPoints(dice);
     }
-    
+
     updateScoreUI();
 }
 
-function keepscore(){
+// sparar poäng och byter tur
+function keepscore() {
     if (currentplayer === player1) {
-        player1Score_final = player1Score_final + player1Score
-        player1Score = 0
+        player1Score_final += player1Score;
+        player1Score = 0;
+    } else {
+        player2Score_final += player2Score;
+        player2Score = 0;
     }
-    else if (currentplayer === player2){
-        player2Score_final = player2Score_final + player2Score
-        player2Score = 0 
-    }
-    changePlayer(); // Byt spelare efter att poängen lagts till
+    changePlayer();
     updateScoreUI();
-    win(); // kollar ifall någon har vunnit efter att poäng lagts till
+    win();
 }
 
+// hämtar namn från ui
 function getPlayerNames() {
     player1 = document.getElementById("player1").textContent || "Player 1";
     player2 = document.getElementById("player2").textContent || "Player 2";
 }
 
-function win(){
+// kollar om någon har vunnit
+function win() {
     getPlayerNames();
-    if (player1Score_final >= 50){
+    if (player1Score_final >= 50) {
         alert(player1 + " vinner!");
-        replay();
-    }
-    else if (player2Score_final >= 50){
+
+    } else if (player2Score_final >= 50) {
         alert(player2 + " vinner!");
-        replay();
+
     }
 }
 
-function replay(){
-    player1Score = 0
-    player1Score_final = 0
-    player2Score = 0
-    player2Score_final = 0
-    currentplayer = player1; // Lägg till denna rad
-    updateScoreUI(); 
+// startar om spelet
+function replay() {
+    player1Score = 0;
+    player1Score_final = 0;
+    player2Score = 0;
+    player2Score_final = 0;
+    currentplayer = player1;
+    updateScoreUI();
+    updateTurnLabel(); // lägg till för att visa rätt tur vid start
 }
 
+// uppdaterar poäng i ui
 function updateScoreUI() {
     document.getElementById('finalpoint1').textContent = player1Score_final;
     document.getElementById('finalpoint2').textContent = player2Score_final;
@@ -152,50 +126,126 @@ function updateScoreUI() {
     document.getElementById('potentialpoint2').textContent = player2Score;
 }
 
-function updateBgGradient() { // updaterar bakrunderna korrekt
+// visar rätt tur i ui
+function updateTurnLabel() {
+    const leftSide = document.getElementById('leftside');
+    const rightSide = document.getElementById('rightside');
+    const currentTurnLabel = '<div class="current-turn-label">Your Turn</div>';
+
+    document.querySelectorAll('.current-turn-label').forEach(label => label.remove());
+
+    if (currentplayer === player1) {
+        leftSide.insertAdjacentHTML('beforeend', currentTurnLabel);
+    } else {
+        rightSide.insertAdjacentHTML('beforeend', currentTurnLabel);
+    }
+}
+
+// fixar bakgrunds delen och uppdaterar mitten
+function updateBgGradient() {
     const leftColor = document.getElementById('color1').value;
     const rightColor = document.getElementById('color2').value;
-    // Bakgrundsgradient för hela sidan
+
     document.getElementById('bg-blur').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
-    // Gradient för mitten
     document.getElementById('middle').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
-    // Denna del fick vi lite hjälp av ai för idé samt externa websida
     document.getElementById('leftside').style.backgroundColor = leftColor;
     document.getElementById('rightside').style.backgroundColor = rightColor;
 }
 
-//core functions
-document.getElementById("rollb").addEventListener("click", function() {
-    rollDice();
-});
+// aktiverar regnbågseffekt för en sida och uppdaterar mitten
+function activateRainbowEffect(side) {
+    let hue = 0;
+    const interval = setInterval(() => {
+        const color = `hsl(${hue}, 100%, 50%)`;
+        document.getElementById(side).style.backgroundColor = color;
 
+        // uppdatera mitten gradient baserat på regnbågseffekt
+        const leftColor = getComputedStyle(document.getElementById('leftside')).backgroundColor;
+        const rightColor = getComputedStyle(document.getElementById('rightside')).backgroundColor;
+        document.getElementById('middle').style.background = `linear-gradient(to right, ${leftColor} 0%, ${leftColor} 50%, ${rightColor} 50%, ${rightColor} 100%)`;
 
-document.getElementById("holdb").addEventListener("click", function() {
-    keepscore();
-});
+        hue = (hue + 5) % 360; // snabbare färgövergång
+    }, 30); // snabbare intervall
 
-document.getElementById("newgameb").addEventListener("click", function() {
-    replay();
-});
+    // returnerar en funktion för att stoppa effekten
+    return () => clearInterval(interval);
+}
 
-// listerners
+// hanterar klick för att aktivera regnbågseffekt (kräver 4 klick)
+let clickCounts = { leftside: 0, rightside: 0 };
 
-document.getElementById('color1').addEventListener('input', function() {
-    updateBgGradient();
-    // ...existing code...
-});
-document.getElementById('color2').addEventListener('input', function() {
-    updateBgGradient();
-    // ...existing code...
-});
+function handleMultipleClicks(event) {
+    const side = event.target.id === 'color1' ? 'leftside' : 'rightside';
 
-// ljud variabel
-const rollDiceSound = new Audio('rolldice.mp3'); // Ljudfilen ska finnas i samma mapp som HTML-filen
+    // öka klickräknaren för sidan
+    clickCounts[side]++;
 
-// lägger till eventlyssnare för ljud q
-document.getElementById('rollb').addEventListener('click', () => {
-  rollDiceSound.currentTime = 0; // Starta om ljudet om det klickas snabbt
-  rollDiceSound.play();
-});
-// Kör en gång vid start
+    if (clickCounts[side] === 4) {
+        if (side === 'leftside') {
+            if (!window.stopLeftRainbow) {
+                window.stopLeftRainbow = activateRainbowEffect(side);
+            } else {
+                window.stopLeftRainbow(); // stoppa regnbågseffekt
+                window.stopLeftRainbow = null;
+                updateBgGradient(); // återställ gradient
+            }
+        } else if (side === 'rightside') {
+            if (!window.stopRightRainbow) {
+                window.stopRightRainbow = activateRainbowEffect(side);
+            } else {
+                window.stopRightRainbow(); // stoppa regnbågseffekt
+                window.stopRightRainbow = null;
+                updateBgGradient(); // återställ gradient
+            }
+        }
+
+        // återställ klickräknaren efter aktivering
+        clickCounts[side] = 0;
+    }
+
+    // återställ klickräknaren om det inte klickas igen inom 1 sekund
+    setTimeout(() => {
+        clickCounts[side] = 0;
+    }, 1000);
+}
+
+// lägger till klicklyssnare för färgfälten
+document.getElementById('color1').addEventListener('click', handleMultipleClicks);
+document.getElementById('color2').addEventListener('click', handleMultipleClicks);
+
+// hanterar färgändring och säkerställer att gradienten uppdateras korrekt
+function handleColorInput() {
+    const leftColor = document.getElementById('color1').value;
+    const rightColor = document.getElementById('color2').value;
+
+    // om regnbågseffekt inte är aktiv, uppdatera gradienten
+    if (!window.stopLeftRainbow && !window.stopRightRainbow) {
+        updateBgGradient();
+    }
+
+    // om regnbågseffekt är aktiv, återställ den sidan som ändras
+    if (window.stopLeftRainbow && leftColor !== '#rainbow') {
+        window.stopLeftRainbow();
+        window.stopLeftRainbow = null;
+        document.getElementById('leftside').style.backgroundColor = leftColor;
+        updateBgGradient();
+    }
+
+    if (window.stopRightRainbow && rightColor !== '#rainbow') {
+        window.stopRightRainbow();
+        window.stopRightRainbow = null;
+        document.getElementById('rightside').style.backgroundColor = rightColor;
+        updateBgGradient();
+    }
+}
+
+// eventlyssnare för knappar och färg
+document.getElementById("rollb").addEventListener("click", rollDice);
+document.getElementById("holdb").addEventListener("click", keepscore);
+document.getElementById("newgameb").addEventListener("click", replay);
+document.getElementById('color1').addEventListener('input', handleColorInput);
+document.getElementById('color2').addEventListener('input', handleColorInput);
+
+// kör gradient och uppdaterar tur vid start
 updateBgGradient();
+updateTurnLabel();
