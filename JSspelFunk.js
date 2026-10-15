@@ -33,3 +33,4 @@ let currentplayer = player1
 let player1Score_final, player2Score_final = 0
 let player1Score, player2Score = 0 
 // rå kåd här. ingan spaces (vill se hur litet spelet kan bli)
+

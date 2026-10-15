@@ -8,10 +8,14 @@ let player2Score_final = 0;
 let player1Score = 0;
 let player2Score = 0;
 
+let saferolls = 0;
+
 // byter tur till nästa spelare och fixar ui
 function changePlayer() {
+    saferolls = 0;
     currentplayer = currentplayer === player1 ? player2 : player1;
     updateTurnLabel(); // flyttad logik för att återanvända
+    updateOddsUI();
 }
 
 // lägger till poäng till den som spelar nu
@@ -22,6 +26,16 @@ function addPoints(dice) {
         player2Score += dice;
     }
     updateScoreUI();
+}
+
+function calculateOdds() {
+    return Math.pow(5 / 6, saferolls) * 100;
+}
+
+function updateOddsUI() {
+    const odds = calculateOdds();
+    document.getElementById('odds').textContent =
+        `Chans att klara ${saferolls} kast i rad utan etta: ${odds.toFixed(2)}%`;
 }
 
 // slumpar tärning och hanterar logik
@@ -69,10 +83,13 @@ function rollDice() {
         }
         changePlayer();
     } else {
+        saferolls++;
         addPoints(dice);
+        updateOddsUI();
     }
 
     updateScoreUI();
+    console.log(`Chans att klara ${saferolls} kast i rad utan etta: ${calculateOdds().toFixed(2)}%`);
 }
 
 // sparar poäng och byter tur
@@ -113,9 +130,11 @@ function replay() {
     player1Score_final = 0;
     player2Score = 0;
     player2Score_final = 0;
+    saferolls = 0;
     currentplayer = player1;
     updateScoreUI();
     updateTurnLabel(); // lägg till för att visa rätt tur vid start
+    updateOddsUI();
 }
 
 // uppdaterar poäng i ui
@@ -249,3 +268,4 @@ document.getElementById('color2').addEventListener('input', handleColorInput);
 // kör gradient och uppdaterar tur vid start
 updateBgGradient();
 updateTurnLabel();
+updateOddsUI();
